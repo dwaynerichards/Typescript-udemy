@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import User from "./User";
 
 export default class Company {
   companyName: string;
@@ -16,3 +17,13 @@ export default class Company {
     };
   }
 }
+type CreateRandos = (num: number) => Array<User | Company>;
+export const createRandCompany: CreateRandos = (num) => {
+  //create num amount of randos
+  const randos: Company[] = [];
+  while (num > 0) {
+    randos.push(new Company());
+    num--;
+  }
+  return randos;
+};

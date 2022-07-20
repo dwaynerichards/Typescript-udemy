@@ -22754,6 +22754,7 @@ exports.faker = Cr;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.createRandUsers = void 0;
 
 var faker_1 = require("@faker-js/faker");
 
@@ -22772,12 +22773,27 @@ function () {
 }();
 
 exports.default = User;
+
+var createRandUsers = function createRandUsers(num) {
+  //create num amount of randos
+  var randos = [];
+
+  while (num > 0) {
+    randos.push(new User());
+    num--;
+  }
+
+  return randos;
+};
+
+exports.createRandUsers = createRandUsers;
 },{"@faker-js/faker":"../node_modules/@faker-js/faker/dist/esm/index.mjs"}],"src/Company.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.createRandCompany = void 0;
 
 var faker_1 = require("@faker-js/faker");
 
@@ -22797,8 +22813,118 @@ function () {
 }();
 
 exports.default = Company;
-},{"@faker-js/faker":"../node_modules/@faker-js/faker/dist/esm/index.mjs"}],"src/index.ts":[function(require,module,exports) {
+
+var createRandCompany = function createRandCompany(num) {
+  //create num amount of randos
+  var randos = [];
+
+  while (num > 0) {
+    randos.push(new Company());
+    num--;
+  }
+
+  return randos;
+};
+
+exports.createRandCompany = createRandCompany;
+},{"@faker-js/faker":"../node_modules/@faker-js/faker/dist/esm/index.mjs"}],"src/CustomMap.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+}); //create marker instance , takes a marker optios object which has a map prop,
+//prop's val needs to be instance of map we want the marker placed on
+
+var CustomMap =
+/** @class */
+function () {
+  function CustomMap(id) {
+    this.googleMap = new google.maps.Map(document.getElementById(id), {
+      zoom: 1,
+      center: {
+        lat: 0,
+        lng: 0
+      }
+    });
+  }
+
+  CustomMap.prototype.addUserMarker = function () {};
+
+  CustomMap.prototype.addCompanyMarker = function () {};
+
+  CustomMap.prototype.addMarker = function () {
+    var _this = this;
+
+    var entity = [];
+
+    for (var _i = 0; _i < arguments.length; _i++) {
+      entity[_i] = arguments[_i];
+    }
+
+    entity.forEach(function (entry) {
+      new google.maps.Marker({
+        map: _this.googleMap,
+        position: entry.location
+      });
+    });
+  };
+
+  return CustomMap;
+}();
+
+exports.default = CustomMap;
+},{}],"src/index.ts":[function(require,module,exports) {
 "use strict"; /// <reference types="@types/google.maps" />
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
+var __spreadArray = this && this.__spreadArray || function (to, from, pack) {
+  if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+    if (ar || !(i in from)) {
+      if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+      ar[i] = from[i];
+    }
+  }
+  return to.concat(ar || Array.prototype.slice.call(from));
+};
 
 var __importDefault = this && this.__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
@@ -22810,23 +22936,22 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var User_1 = __importDefault(require("./User"));
+var User_1 = __importStar(require("./User"));
 
-var Company_1 = __importDefault(require("./Company"));
+var Company_1 = __importStar(require("./Company"));
+
+var CustomMap_1 = __importDefault(require("./CustomMap"));
 
 var company = new Company_1.default();
 var user = new User_1.default();
 console.log("hello");
 console.log(company);
 console.log(user);
-new google.maps.Map(document.getElementById("map"), {
-  zoom: 1,
-  center: {
-    lat: 0,
-    lng: 0
-  }
-});
-},{"./User":"src/User.ts","./Company":"src/Company.ts"}],"../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var map = new CustomMap_1.default("map");
+var companies = (0, Company_1.createRandCompany)(5);
+var users = (0, User_1.createRandUsers)(5);
+map.addMarker.apply(map, __spreadArray(__spreadArray([], (0, Company_1.createRandCompany)(5), false), (0, User_1.createRandUsers)(5), false));
+},{"./User":"src/User.ts","./Company":"src/Company.ts","./CustomMap":"src/CustomMap.ts"}],"../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
