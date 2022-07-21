@@ -1,9 +1,11 @@
 import { faker } from "@faker-js/faker";
-import User from "./User";
-
+import { Mappable } from "./CustomMap";
+import { CreateRandos } from "./User";
 export default class Company {
   companyName: string;
   catchPhrase: string;
+  color: string;
+
   location: {
     lat: number;
     lng: number;
@@ -15,12 +17,18 @@ export default class Company {
       lat: Number(faker.address.latitude()),
       lng: Number(faker.address.longitude()),
     };
+    this.color = faker.color.human();
+  }
+
+  markerContent(): string {
+    return `<h1> Company: ${this.companyName} </h1>
+    <h3> Catchphrase: ${this.catchPhrase} </h3>
+    `;
   }
 }
-type CreateRandos = (num: number) => Array<User | Company>;
 export const createRandCompany: CreateRandos = (num) => {
   //create num amount of randos
-  const randos: Company[] = [];
+  const randos: Mappable[] = [];
   while (num > 0) {
     randos.push(new Company());
     num--;

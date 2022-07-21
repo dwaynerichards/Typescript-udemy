@@ -22767,7 +22767,12 @@ function () {
       lat: Number(faker_1.faker.address.latitude()),
       lng: Number(faker_1.faker.address.longitude())
     };
+    this.color = faker_1.faker.color.human();
   }
+
+  User.prototype.markerContent = function () {
+    return "<h1> Name: ".concat(this.name, " </h1>\n    ");
+  };
 
   return User;
 }();
@@ -22807,7 +22812,12 @@ function () {
       lat: Number(faker_1.faker.address.latitude()),
       lng: Number(faker_1.faker.address.longitude())
     };
+    this.color = faker_1.faker.color.human();
   }
+
+  Company.prototype.markerContent = function () {
+    return "<h1> Company: ".concat(this.companyName, " </h1>\n    <h3> Catchphrase: ").concat(this.catchPhrase, " </h3>\n    ");
+  };
 
   return Company;
 }();
@@ -22848,10 +22858,6 @@ function () {
     });
   }
 
-  CustomMap.prototype.addUserMarker = function () {};
-
-  CustomMap.prototype.addCompanyMarker = function () {};
-
   CustomMap.prototype.addMarker = function () {
     var _this = this;
 
@@ -22862,9 +22868,18 @@ function () {
     }
 
     entity.forEach(function (entry) {
-      new google.maps.Marker({
+      var marker = new google.maps.Marker({
         map: _this.googleMap,
         position: entry.location
+      });
+      marker.addListener("click", function () {
+        //return a string, iter obj adding keys and values to string
+        var content = entry.markerContent();
+        console.log(entry);
+        var inforWindow = new google.maps.InfoWindow({
+          content: content
+        });
+        inforWindow.open(_this.googleMap, marker); //setTimeout(inforWindow.close, 3000);
       });
     });
   };
