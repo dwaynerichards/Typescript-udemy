@@ -1,56 +1,24 @@
-console.log("sorting!");
+import Sorter from "./Sorter";
+import NumersCollection from "./NumberCollection";
+import { CharacterCollection } from "./CharacterCollection";
+import { LinkedList } from "./LinkedList";
 
-class Sorter {
-  constructor(public collection: number[] | string) {}
-  sort() {
-    let i = 0;
-    const { collection } = this;
-    let passes = collection.length - 1;
-    let eleSwaped = false;
-    while (passes > 0) {
-      //if r > l, swap elements
-      let [left, right] = [collection[i], collection[i + 1]];
-      if (typeof collection === "number") {
-        if (left > right) {
-          [left, right] = [right, left];
-          eleSwaped = true;
-        }
-        i++;
-        if (i === passes && eleSwaped == false) {
-          break;
-        } else if (i === passes) {
-          i = 0;
-          passes--;
-        }
-      }
-    }
-    return collection;
-  }
-}
-
+const str = "asweWdfegfrtwegergsffowohp";
 const arr = [34, 55, 7, 222, 5, 1, 9, 3];
-type SortAlgo = (arr: Array<number>) => Array<number>;
-const bubbleSort: SortAlgo = (arr) => {
-  let i = 0;
-  let passes = arr.length - 1;
-  let eleSwaped = false;
-  while (passes > 0) {
-    const r = arr[i];
-    const l = arr[i + 1];
-    if (r > l) {
-      [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
-      eleSwaped = true;
-    }
-    i++;
-    if (i === passes && eleSwaped == false) {
-      break;
-    } else if (i === passes) {
-      i = 0;
-      passes--;
-    }
-  }
-  return arr;
-};
-const sorter = new Sorter(arr);
-console.log(sorter.collection);
-console.log(sorter.sort());
+const characterCollection = new CharacterCollection(str);
+// const numCollection = new NumersCollection(arr);
+// const sorter = new Sorter(numCollection);
+// console.log(sorter.collection);
+// console.log(sorter.sort());
+// console.log(arr);
+// const charSorter = new Sorter(characterCollection);
+// charSorter.sort();
+
+const linkedList = new LinkedList(5);
+linkedList.add(2);
+linkedList.add(1);
+console.log(linkedList.length);
+console.log(linkedList.at(1));
+//console.log(linkedList.at(0));
+linkedList.swap(0, 1);
+console.log(linkedList.at(1));
