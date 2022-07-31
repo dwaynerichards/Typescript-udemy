@@ -1,6 +1,6 @@
 import { Analyser } from "../Summery";
 import { Match } from "../MatchReader";
-class AvgGoalsAnalysis implements Analyser {
+export default class AvgGoalsAnalysis implements Analyser {
   constructor(public team: string) {}
   run(matches: Match[]): string {
     //returning ave goals, total goals / num games

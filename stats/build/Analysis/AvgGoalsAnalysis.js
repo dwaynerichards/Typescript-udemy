@@ -25,3 +25,4 @@ class AvgGoalsAnalysis {
         return `Team : ${this.team} averages ${avgGoals} per game`;
     }
 }
+exports.default = AvgGoalsAnalysis;

@@ -1,5 +1,5 @@
 import { Match } from "../MatchReader";
-import { Analyser } from "./Summery";
+import { Analyser } from "../Summery";
 
 export default class WinAnalysis implements Analyser {
   constructor(public team: string) {}
