@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start:build": "tsc -w",
-    "start:run": "nodemon build/sortingts/src/index.js",
+    "start:run": "nodemon build/generics/generics.js",
     "start": "concurrently npm:start:*"
   },
   "author": "",
