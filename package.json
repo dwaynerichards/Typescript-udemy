@@ -7,7 +7,7 @@
     "start:run": "nodemon build/generics/generics.js",
     "start": "concurrently npm:start:*"
   },
-  "author": "",
+  "author": "Dwayne & Naima",
   "license": "ISC",
   "devDependencies": {
     "typescript": "^4.7.4"
