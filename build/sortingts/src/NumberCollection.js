@@ -1,7 +1,12 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-class NumberCollection {
+const Sortable_1 = __importDefault(require("./Sortable"));
+class NumberCollection extends Sortable_1.default {
     constructor(data) {
+        super();
         this.data = data;
     }
     get length() {

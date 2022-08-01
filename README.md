@@ -11,3 +11,5 @@ The @types/googlemaps has been deprecated. Instead, we install a different libra
 npm install @types/google.maps
 
 Sortings dir contains abstract classes, with method implementations and extensions.
+
+Generics containts ex of use of generics coupled with interface extensions.
