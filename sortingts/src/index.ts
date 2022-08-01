@@ -1,4 +1,4 @@
-import Sorter from "./Sorter";
+import Sorter from "./Sortable";
 import NumersCollection from "./NumberCollection";
 import { CharacterCollection } from "./CharacterCollection";
 import { LinkedList } from "./LinkedList";
