@@ -1,14 +1,26 @@
 /**
  * @dev It's best practive in object oriented programing
- * to have objects only mutatue their own state,
+ * to have objects only mutate their own state,
  * As Such I think a class based Payment Processor might be a more
  * robust apporach and allows you to have more modular, reusable code
+ *
+ * this answer assumes that transactions are stored as an array on the user objects
  */
 export class PaymentService {
   constructor() {}
-  withinTime(timeA: string, timeB: string): boolean {
-    const limit = Number(timeA) + 5;
-    return Number(timeB) < limit;
+  ///function returns if time a is within 5 min of time b
+  meetsTreshold(timeA: string, timeB: string): boolean {
+    const { convertTime } = this;
+    const limit = convertTime(timeA) + 5;
+    return convertTime(timeB) > limit;
+  }
+  convertTime(time: string): number {
+    //multiply 60 first 2 char, add sum to last two char
+    //"1222"
+    const altTime = time.split("");
+    const minBase = Number(altTime.slice(-2));
+    const hrs = Number(altTime) * 60;
+    return hrs + minBase;
   }
   /**
    * @dev function sorts array of transactions, then iterates through
@@ -19,7 +31,7 @@ export class PaymentService {
    * @param userAccount the user account to be sorted and processed
    */
   processTransactions(userAccount: Account): void {
-    const { withinTime } = this;
+    const { meetsTreshold } = this;
     const { transactions, deductTransaction } = userAccount;
     let deductions = 0;
     let prevTimeStamp = transactions[0].timeStamp;
@@ -28,7 +40,7 @@ export class PaymentService {
     userAccount.sortTransactions().forEach((transaction) => {
       const { timeStamp } = transaction;
       //compare checkes if 5 mins over,
-      if (!withinTime(prevTimeStamp, timeStamp)) {
+      if (meetsTreshold(prevTimeStamp, timeStamp)) {
         // if next transaction time is 5min over curent transaction time
         //dedduct, reset transDed = 1, reset _timestamp
         deductTransaction(transaction);
