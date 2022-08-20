@@ -37,7 +37,7 @@ export class PaymentService {
     let prevTimeStamp = transactions[0].timeStamp;
     //[1],     [2],    [3],    [5],    [11],   [15]
     //    transD =2, _timeS =2
-    userAccount.sortTransactions().forEach((transaction) => {
+    transactions.forEach((transaction) => {
       const { timeStamp } = transaction;
       //compare checkes if 5 mins over,
       if (meetsTreshold(prevTimeStamp, timeStamp)) {
@@ -64,13 +64,15 @@ class Account {
     public balance: number,
     public active: boolean,
     public transactions: Transaction[]
-  ) {}
+  ) {
+    this.sortTransactions();
+  }
   deductTransaction(_transaction: Transaction): void {
     this.balance -= _transaction.amount;
   }
   sortTransactions() {
     const { sortTime, transactions } = this;
-    return transactions.sort(sortTime);
+    this.transactions = transactions.sort(sortTime);
   }
   sortTime(transA: Transaction, transB: Transaction): number {
     return Number(transA.timeStamp) - Number(transB.timeStamp);
